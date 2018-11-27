@@ -1,0 +1,12 @@
+---
+- hosts: appServer
+  become: yes
+  gather_facts: yes
+  roles:
+    - service
+
+- hosts: backupServer
+  become: yes
+  gather_facts: yes
+  roles:
+    - service

@@ -1,0 +1,32 @@
+{
+  "conversation_event": {
+    "mappings": {
+      "conversation_event": {
+        "properties": {
+          "conversationId": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "message": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            },
+            "fielddata": true
+          },
+          "updatedAt": {
+            "type": "date"
+          }
+        }
+      }
+    }
+  }
+}

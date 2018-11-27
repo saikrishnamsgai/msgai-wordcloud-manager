@@ -1,0 +1,23 @@
+#!/bin/bash
+SERVICE_NAME=PIServiceApplication
+PATH_TO_JAR=/App/core/msgai-pi-manager/pi-manager/msgai-pi-application-0.0.1.jar
+PID_PATH_NAME=/tmp/PIServiceApplication-pid
+APP_ENV='{{serviceEnvironment}}'
+case $1 in
+    start)
+        echo "Starting $SERVICE_NAME ..."
+        nohup java -Dspring.profiles.active=$APP_ENV -XX:+UseG1GC -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
+    ;;
+    stop)
+        echo "$SERVICE_NAME stoping ..."
+        sudo ps xu | grep msgai-pi-application |grep -v grep | awk '{ print $2 }' | xargs sudo kill -9
+        echo "$SERVICE_NAME stopped ..."
+    ;;
+    restart)
+        echo "$SERVICE_NAME stoping ..."
+        sudo ps xu | grep msgai-pi-application |grep -v grep | awk '{ print $2 }' | xargs sudo kill -9
+        echo "$SERVICE_NAME stopped ..."
+        echo "Starting $SERVICE_NAME ..."
+        nohup java -Dspring.profiles.active=$APP_ENV -XX:+UseG1GC -jar $PATH_TO_JAR 2>> /dev/null >> /dev/null &
+    ;;
+esac

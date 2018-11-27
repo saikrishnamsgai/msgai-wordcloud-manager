@@ -1,0 +1,14 @@
+{
+	"callBackUrl": "http://127.0.0.1:38086/ceaas/v1/response",
+	"messages": [
+		{
+			"channel": "REST_API",
+			"chatterRawMessage": "hi",
+			"actor": "VISITOR",
+			"clientConvRef": "+1212555555",
+			"conversationId": "2036856320",
+			"messageId": "32657d3b-06dd-4ed6-85cd-32a2fca65470",
+			"timestamp":"1507116330236"
+		}
+	]
+}

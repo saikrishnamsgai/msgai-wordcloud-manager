@@ -1,0 +1,9 @@
+---
+- name: Stop ConversationEngineRestService | Stopping service
+  command: chdir=/App/core/msgai-pi-manager/pi-manager/ sh PIServiceApplication.sh stop
+
+- name: Start ConversationEngineRestService
+  command: chdir=/App/core/msgai-pi-manager/pi-manager/ sh PIServiceApplication.sh start
+  async: 45
+  poll: 0
+

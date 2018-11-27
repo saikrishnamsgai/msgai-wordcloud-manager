@@ -1,0 +1,36 @@
+---
+- name: Service Dependencies | Create target jar location directories
+  file: path=/App/core/msgai-wordcloud-manager/ state=directory mode=0777
+
+- name: Service Dependencies | Create log directories
+  file: path=/App/log/core/msgai-wordcloud-manager/ state=directory mode=0777
+
+- name: Service Dependencies | Copy jar to target host
+  copy: src=application/{{ BUILD_NUMBER }} dest=/App/core/msgai-wordcloud-manager/
+
+- name: Service Dependencies | Copy template script
+  template: src=service/templates/WCServiceApplication.sh.j2 dest=/App/core/msgai-wordcloud-manager/{{ BUILD_NUMBER }}/WSServiceApplication.sh mode=0754
+
+- name: Remove symlink
+  file:
+   path: "/App/core/msgai-wordcloud-manager/wordcloud-manager"
+   state: absent
+
+- name: Create symlink to social
+  file:
+    src: /App/core/msgai-wordcloud-manager/{{ BUILD_NUMBER }}
+    dest: /App/core/msgai-wordcloud-manager/wordcloud-manager
+    state: link
+
+- name: Stop ConversationEngineRestService | Stopping service
+  command: chdir=/App/core/msgai-wordcloud-manager/wordcloud-manager/ sh PIServiceApplication.sh stop
+
+- name: Start ConversationEngineRestService
+  command: chdir=/App/core/msgai-wordcloud-manager/wordcloud-manager/ sh PIServiceApplication.sh start
+  async: 45
+  poll: 0
+
+- name: Delete older packages
+  shell: ls -lt|tail -n +7|awk '{print $9}' | xargs rm -rf
+  args:
+    chdir: /App/core/msgai-wordcloud-manager
