@@ -1,0 +1,8 @@
+.idea/
+*.iml
+msgai-pi-application/target/
+msgai-pi-client/target/
+msgai-pi-ecommerce/target/
+msgai-pi-model/target/
+msgai-pi-repository/target/
+msgai-pi-service/target/
